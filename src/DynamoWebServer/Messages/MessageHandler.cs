@@ -282,6 +282,7 @@ namespace DynamoWebServer.Messages
                     // Get the file as byte array and after that delete it
                     fileContent = File.ReadAllBytes(filePath);
                     File.Delete(filePath);
+                    workspaceToSave.FileName = null;
 
                     // Send to the Flood the file as byte array and its name
                     OnResultReady(this, new ResultReadyEventArgs(
