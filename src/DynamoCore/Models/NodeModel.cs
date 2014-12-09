@@ -1412,7 +1412,10 @@ namespace Dynamo.Models
                 var arr = value.Split(';');
                 for (int i = 0; i < arr.Length; i++)
                 {
-                    InPorts[i].UsingDefaultValue = !bool.Parse(arr[i]);
+                    if (InPorts[i].DefaultValueEnabled)
+                    {
+                        InPorts[i].UsingDefaultValue = !bool.Parse(arr[i]);
+                    }
                 }
                 return true;
             }
