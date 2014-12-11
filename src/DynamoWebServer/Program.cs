@@ -31,7 +31,7 @@ namespace DynamoWebServer
             var webSocketServer = new WebServer(model, new WebSocket());
 
             webSocketServer.Start();
-            /*
+            //*
             var viewModel = DynamoViewModel.Start(
                 new DynamoViewModel.StartConfiguration()
                 {
@@ -42,7 +42,7 @@ namespace DynamoWebServer
             //*/
             var app = new Application();
             app.Exit += webSocketServer.ProcessExit;
-            app.Run();
+            app.Run(view);
         }
     }
 }
