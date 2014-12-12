@@ -65,13 +65,11 @@ namespace DynamoWebServer.Messages
             {
                 case "Number":
                     double number;
-                    double.TryParse(data, out number);
-                    Value = number;
+                    Value = double.TryParse(data, out number) ? number : 0;
                     break;
                 case "Boolean":
                     bool boolValue;
-                    bool.TryParse(data, out boolValue);
-                    Value = boolValue;
+                    Value = bool.TryParse(data, out boolValue) ? boolValue : false;
                     break;
                 case "String":
                 case "Code Block":
