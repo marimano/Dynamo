@@ -85,7 +85,7 @@ namespace DynamoWebServer.Messages
                     }
                     break;
             }
-                    
+
             this.DisplayName = node.NickName;
             this.Position = new List<double> { node.X, node.Y };
         }
