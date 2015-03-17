@@ -520,7 +520,7 @@ namespace Dynamo
 
         private void RequestNodeVisualUpdateAsync(NodeModel nodeModel)
         {
-            if (nodeModel != null)
+            /*if (nodeModel != null)
             {
                 // Visualization update for a given node is desired.
                 nodeModel.RequestVisualUpdateAsync(
@@ -539,7 +539,7 @@ namespace Dynamo
                         dynamoModel.EngineController,
                         MaxTesselationDivisions);
                 }
-            }
+            }*/
 
             // Schedule a NotifyRenderPackagesReadyAsyncTask here so that when 
             // render packages of all the NodeModel objects are generated, the 
