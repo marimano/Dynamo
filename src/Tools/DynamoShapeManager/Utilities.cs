@@ -55,7 +55,8 @@ namespace DynamoShapeManager
                 return LibraryVersion.None;
             }
 
-            return LibraryVersion.None;
+            location = @"C:\Program Files\Autodesk\Revit Architecture 2014";
+            return LibraryVersion.Version219;
         }
 
         /// <summary>
