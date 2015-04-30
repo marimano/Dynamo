@@ -200,7 +200,7 @@ namespace Dynamo.Search.SearchElements
         }
 
         protected List<string> outputParameters;
-        public List<string> OutputParameters
+        public IEnumerable<string> OutputParameters
         {
             get
             {
@@ -209,6 +209,16 @@ namespace Dynamo.Search.SearchElements
 
                 return outputParameters;
             }
+        }
+
+        /// <summary>
+        ///     Indicates whether it is custom node or zero-touch element.
+        ///     And whether this element comes from package or not.
+        /// </summary>
+        public ElementTypes ElementType
+        {
+            get;
+            protected set;
         }
 
         /// <summary>
@@ -258,13 +268,13 @@ namespace Dynamo.Search.SearchElements
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        protected virtual List<string> GenerateOutputParameters()
+        protected virtual IEnumerable<string> GenerateOutputParameters()
         {
             outputParameters.Add("none");
             return outputParameters;
         }
 
-        protected virtual List<Tuple<string, string>> GenerateInputParameters()
+        protected virtual IEnumerable<Tuple<string, string>> GenerateInputParameters()
         {
             inputParameters.Add(Tuple.Create("", "none"));
             return inputParameters;

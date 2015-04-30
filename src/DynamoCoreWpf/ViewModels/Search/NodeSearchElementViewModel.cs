@@ -11,6 +11,7 @@ using Microsoft.Practices.Prism.ViewModel;
 using System;
 using Dynamo.Models;
 using Dynamo.ViewModels;
+using Dynamo.Search;
 
 namespace Dynamo.Wpf.ViewModels
 {
@@ -26,6 +27,11 @@ namespace Dynamo.Wpf.ViewModels
             {
                 RequestBitmapSource(e);
             }
+        }
+
+        public ElementTypes ElementType
+        {
+            get { return Model.ElementType; }
         }
 
         public NodeSearchElementViewModel(NodeSearchElement element, SearchViewModel svm)
@@ -117,7 +123,7 @@ namespace Dynamo.Wpf.ViewModels
             get { return Model.InputParameters; }
         }
 
-        public List<string> OutputParameters
+        public IEnumerable<string> OutputParameters
         {
             get { return Model.OutputParameters; }
         }

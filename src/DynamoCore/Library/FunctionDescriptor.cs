@@ -67,6 +67,7 @@ namespace Dynamo.DSEngine
         public IEnumerable<string> ReturnKeys { get; set; }
         public IPathManager PathManager { get; set; }
         public bool IsVarArg { get; set; }
+        public bool IsBuiltIn { get; set; }
     }
 
     /// <summary>
@@ -92,7 +93,7 @@ namespace Dynamo.DSEngine
             Parameters = funcDescParams.Parameters.Select(
                 x =>
                 {
-                    x.UpdateFunctionDescriptor(this, pathManager);
+                    x.UpdateFunctionDescriptor(this);
                     return x;
                 }).ToList();
 
@@ -121,6 +122,7 @@ namespace Dynamo.DSEngine
             IsVisibleInLibrary = funcDescParams.IsVisibleInLibrary;
             ObsoleteMessage = funcDescParams.ObsoleteMsg;
             CanUpdatePeriodically = funcDescParams.CanUpdatePeriodically;
+            IsBuiltIn = funcDescParams.IsBuiltIn;
         }
 
         public bool IsOverloaded { get; set; }
@@ -162,6 +164,8 @@ namespace Dynamo.DSEngine
         /// </summary>
         public bool IsVarArg { get; private set; }
 
+        public bool IsBuiltIn { get; private set; }
+
         public string ObsoleteMessage { get; protected set; }
         public bool IsObsolete { get { return !string.IsNullOrEmpty(ObsoleteMessage); } }
 
@@ -172,7 +176,7 @@ namespace Dynamo.DSEngine
 
         public string Summary
         {
-            get { return summary ?? (summary = this.GetSummary(pathManager)); }
+            get { return summary ?? (summary = this.GetSummary()); }
         }
 
         /// <summary>
