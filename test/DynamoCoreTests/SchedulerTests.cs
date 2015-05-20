@@ -22,7 +22,7 @@ using ProtoCore.AST;
 using ProtoCore.DSASM;
 using TestServices;
 
-namespace Dynamo
+namespace Dynamo.Tests
 {
     using TaskState = TaskStateChangedEventArgs.State;
 
@@ -404,6 +404,12 @@ namespace Dynamo
             : base(data.Scheduler, false)
         {
             this.data = data;
+        }
+
+        internal void InitializeTestData()
+        {
+            if (ModifiedNodes == null)
+                ModifiedNodes = new List<NodeModel>();
         }
 
         protected override void HandleTaskExecutionCore()
@@ -1016,6 +1022,12 @@ namespace Dynamo
                 MakeAggregateRenderPackageAsyncTask(Guid.Empty),
             };
 
+            // Due to defaulting to auto-run mode, multiple UpdateGraphAsyncTask
+            // may have been scheduled prior to this. Clear those tasks before test 
+            // starts in a predictable state.
+            // 
+            schedulerThread.GetSchedulerToProcessTasks();
+
             var scheduler = dynamoModel.Scheduler;
             foreach (var stubAsyncTask in tasksToSchedule)
             {
@@ -1026,7 +1038,6 @@ namespace Dynamo
 
             var expected = new List<string>
             {
-                "FakeUpdateGraphAsyncTask: 6",
                 "FakeUpdateGraphAsyncTask: 10",
                 "FakeQueryMirrorDataAsyncTask: 0",
                 "FakeUpdateRenderPackageAsyncTask: 1",
@@ -1303,7 +1314,9 @@ namespace Dynamo
 
         private AsyncTask MakeUpdateGraphAsyncTask()
         {
-            return new FakeUpdateGraphAsyncTask(MakeAsyncTaskData());
+            var t = new FakeUpdateGraphAsyncTask(MakeAsyncTaskData());
+            t.InitializeTestData(); // Just to initialize ModifiedNodes
+            return t;
         }
 
         private AsyncTask MakeUpdateRenderPackageAsyncTask(Guid nodeGuid)
