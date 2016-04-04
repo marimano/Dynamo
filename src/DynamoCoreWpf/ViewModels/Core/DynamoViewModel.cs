@@ -1143,7 +1143,7 @@ namespace Dynamo.ViewModels
                 }
                 else
                 {
-                    throw new Exception("[[something bad - " + e.StackTrace+"]]", e);
+                    throw new Exception("[[something bad - " +e.Message+"---"+ e.StackTrace+"]]", e);
                 }
                 return;
             }

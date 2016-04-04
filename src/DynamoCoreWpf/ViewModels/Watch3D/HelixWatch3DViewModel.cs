@@ -350,7 +350,7 @@ namespace Dynamo.Wpf.ViewModels.Watch3D
 
         public bool IsResizable { get; protected set; }
 
-        void UpdateSceneItems()
+        private void UpdateSceneItems()
         {
             if (Model3DDictionary == null)
             {
@@ -359,10 +359,11 @@ namespace Dynamo.Wpf.ViewModels.Watch3D
             }
 
             var values = Model3DDictionary.Values.ToList();
-            values.Sort(new Model3DComparer(Camera.Position));
+            if (Camera != null)
+                values.Sort(new Model3DComparer(Camera.Position));
             sceneItems = values;
         }
-		
+
         public IEnumerable<Model3D> SceneItems
         {
             get
@@ -878,9 +879,16 @@ namespace Dynamo.Wpf.ViewModels.Watch3D
 
         private void OnSceneItemsChanged()
         {
-            UpdateSceneItems();
-            RaisePropertyChanged("SceneItems");
-            OnRequestViewRefresh();
+            try
+            {
+                UpdateSceneItems();
+                RaisePropertyChanged("SceneItems");
+                OnRequestViewRefresh();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("***"+ex.Message + "---" + ex.StackTrace+"***");
+            }
         }
    
         private KeyValuePair<string, Model3D>[] FindAllGeometryModel3DsForNode(NodeModel node)
