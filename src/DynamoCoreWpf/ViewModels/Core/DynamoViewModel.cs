@@ -1143,9 +1143,7 @@ namespace Dynamo.ViewModels
                 }
                 else
                 {
-                    Debug.WriteLine("problem: " + e.Message);
-                    Debug.WriteLine("problem stack trace: " + e.StackTrace);
-                    throw (e);
+                    throw new Exception("[[something bad - " + e.StackTrace+"]]", e);
                 }
                 return;
             }
