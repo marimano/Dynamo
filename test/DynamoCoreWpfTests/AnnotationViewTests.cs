@@ -62,7 +62,14 @@ namespace DynamoCoreWpfTests
         [Test]
         public  void TestAnnotationMouseClickEvent()
         {
-            Open(@"UI\GroupTest.dyn");
+            try
+            {
+                Open(@"UI\GroupTest.dyn");
+            }
+            catch (Exception e)
+            {
+                Assert.Fail("problem!!!!"+e.Message + Environment.NewLine + e.StackTrace);
+            }
 
             var annotationView = NodeViewWithGuid("a432d63f-7a36-45ad-b30a-7924beb20e90");
             //Raise a click event to check whether the group and the models are selected
