@@ -449,33 +449,12 @@ namespace Dynamo.Controls
 
         private async void TryShowPreviewBubblesAsync()
         {
-            nodeWasClicked = false;
-
-            // Always set old ZIndex to the last value, even if mouse is not over the node.
-            oldZIndex = NodeViewModel.StaticZIndex;
-
             // if the node is located under "Hide preview bubbles" menu item and the item is clicked,
             // ViewModel.DynamoViewModel.ShowPreviewBubbles will be updated AFTER node mouse enter event occurs
             // so, wait while ShowPreviewBubbles binding updates value
             await Dispatcher.Yield(DispatcherPriority.ApplicationIdle);
 
-            // There is no need run further.
-            if (IsPreviewDisabled()) return;
-
-            if (PreviewControl.IsInTransition) // In transition state, come back later.
-                return;
-
-            if (PreviewControl.IsHidden)
-            {
-                if (!previewControl.IsDataBound)
-                    PreviewControl.BindToDataSource();
-
-                PreviewControl.TransitionToState(PreviewControl.State.Condensed);
-
-                Dispatcher.DelayInvoke(previewDelay, ExpandPreviewControl);
-            }
-
-            Dispatcher.DelayInvoke(previewDelay, BringToFront);
+            TryShowPreviewBubbles();
         }
 
         private bool IsPreviewDisabled()
@@ -486,8 +465,12 @@ namespace Dynamo.Controls
             // Or preview is disabled for this node
             // Or preview shouldn't be shown for some nodes (e.g. number sliders, watch nodes etc.)
             // Or node is frozen.
-            return !ViewModel.DynamoViewModel.ShowPreviewBubbles ||
-                ViewModel.WorkspaceViewModel.IsConnecting || 
+            return (ViewModel != null && ViewModel.DynamoViewModel != null &&
+                ViewModel.DynamoViewModel.Model != null &&
+                ViewModel.DynamoViewModel.Model.PreferenceSettings != null &&
+                !ViewModel.DynamoViewModel.ShowPreviewBubbles) 
+                ||
+                ViewModel.WorkspaceViewModel.IsConnecting ||
                 ViewModel.WorkspaceViewModel.IsSelecting || !previewEnabled ||
                 !ViewModel.IsPreviewInsetVisible || ViewModel.IsFrozen;
         }
