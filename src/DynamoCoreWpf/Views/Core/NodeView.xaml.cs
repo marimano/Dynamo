@@ -411,13 +411,19 @@ namespace Dynamo.Controls
 
         private void OnNodeViewMouseEnter(object sender, MouseEventArgs e)
         {
-            if (DynCmd.IsTestMode)
+            try
             {
-                TryShowPreviewBubbles();
+                if (DynCmd.IsTestMode)
+                {
+                    TryShowPreviewBubbles();
+                }
+                else
+                {
+                    TryShowPreviewBubblesAsync();
+                }
             }
-            else
+            catch
             {
-                TryShowPreviewBubblesAsync();
             }
         }
 

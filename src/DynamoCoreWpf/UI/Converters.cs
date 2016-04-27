@@ -977,7 +977,16 @@ namespace Dynamo.Controls
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (bool)value ? Resources.DynamoViewSettingsMenuHidePreviewBubbles : Resources.DynamoViewSettingsMenuShowPreviewBubbles;
+            try
+            {
+                return (bool) value
+                    ? Resources.DynamoViewSettingsMenuHidePreviewBubbles
+                    : Resources.DynamoViewSettingsMenuShowPreviewBubbles;
+            }
+            catch
+            {
+                return "";
+            }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
