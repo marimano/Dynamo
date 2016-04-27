@@ -245,12 +245,10 @@ namespace Dynamo.ViewModels
         {
             get
             {
-                return model != null && model.PreferenceSettings != null ? model.PreferenceSettings.ShowPreviewBubbles : true;
+                return model.PreferenceSettings.ShowPreviewBubbles;
             }
             set
             {
-                if (model == null || model.PreferenceSettings == null) return;
-
                 model.PreferenceSettings.ShowPreviewBubbles = value;
 
                 RaisePropertyChanged("ShowPreviewBubbles");

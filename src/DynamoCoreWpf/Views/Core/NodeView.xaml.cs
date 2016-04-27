@@ -471,11 +471,7 @@ namespace Dynamo.Controls
             // Or preview is disabled for this node
             // Or preview shouldn't be shown for some nodes (e.g. number sliders, watch nodes etc.)
             // Or node is frozen.
-            return (ViewModel != null && ViewModel.DynamoViewModel != null &&
-                ViewModel.DynamoViewModel.Model != null &&
-                ViewModel.DynamoViewModel.Model.PreferenceSettings != null &&
-                !ViewModel.DynamoViewModel.ShowPreviewBubbles) 
-                ||
+            return !ViewModel.DynamoViewModel.ShowPreviewBubbles ||
                 ViewModel.WorkspaceViewModel.IsConnecting ||
                 ViewModel.WorkspaceViewModel.IsSelecting || !previewEnabled ||
                 !ViewModel.IsPreviewInsetVisible || ViewModel.IsFrozen;
