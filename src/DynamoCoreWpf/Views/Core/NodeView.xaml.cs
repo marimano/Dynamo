@@ -411,23 +411,53 @@ namespace Dynamo.Controls
 
         private void OnNodeViewMouseEnter(object sender, MouseEventArgs e)
         {
-            TryShowPreviewBubbles();
+            if (DynCmd.IsTestMode)
+            {
+                TryShowPreviewBubbles();
+            }
+            else
+            {
+                TryShowPreviewBubblesAsync();
+            }
         }
 
-        private async void TryShowPreviewBubbles()
+        private void TryShowPreviewBubbles()
         {
             nodeWasClicked = false;
 
             // Always set old ZIndex to the last value, even if mouse is not over the node.
             oldZIndex = NodeViewModel.StaticZIndex;
 
-            if (!DynCmd.IsTestMode)
+            // There is no need run further.
+            if (IsPreviewDisabled()) return;
+
+            if (PreviewControl.IsInTransition) // In transition state, come back later.
+                return;
+
+            if (PreviewControl.IsHidden)
             {
-                // if the node is located under "Hide preview bubbles" menu item and the item is clicked,
-                // ViewModel.DynamoViewModel.ShowPreviewBubbles will be updated AFTER node mouse enter event occurs
-                // so, wait while ShowPreviewBubbles binding updates value
-                await Dispatcher.Yield(DispatcherPriority.ApplicationIdle);
+                if (!previewControl.IsDataBound)
+                    PreviewControl.BindToDataSource();
+
+                PreviewControl.TransitionToState(PreviewControl.State.Condensed);
+
+                Dispatcher.DelayInvoke(previewDelay, ExpandPreviewControl);
             }
+
+            Dispatcher.DelayInvoke(previewDelay, BringToFront);
+        }
+
+        private async void TryShowPreviewBubblesAsync()
+        {
+            nodeWasClicked = false;
+
+            // Always set old ZIndex to the last value, even if mouse is not over the node.
+            oldZIndex = NodeViewModel.StaticZIndex;
+
+            // if the node is located under "Hide preview bubbles" menu item and the item is clicked,
+            // ViewModel.DynamoViewModel.ShowPreviewBubbles will be updated AFTER node mouse enter event occurs
+            // so, wait while ShowPreviewBubbles binding updates value
+            await Dispatcher.Yield(DispatcherPriority.ApplicationIdle);
 
             // There is no need run further.
             if (IsPreviewDisabled()) return;
