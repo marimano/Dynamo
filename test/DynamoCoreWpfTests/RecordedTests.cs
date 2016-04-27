@@ -1478,6 +1478,8 @@ namespace DynamoCoreWpfTests
         [Test, RequiresSTA]
         public void UpdatingCbnShouldCauseDownstreamExecution()
         {
+            var isTestMode = DynamoModel.IsTestMode;
+            
             // This test is meant to verify the fix for MAGN-7575 where updating
             // a code block node causes downstream addition node to result in "null"
             // instead of retaining its value of "16". Modifying the code block node
@@ -1504,6 +1506,8 @@ namespace DynamoCoreWpfTests
                         break;
                 }
             });
+
+            DynamoModel.IsTestMode = isTestMode;
         }
 
         [Test, RequiresSTA, Category("RegressionTests")]
@@ -3330,6 +3334,7 @@ namespace DynamoCoreWpfTests
         [Category("RegressionTests"), Category("Failure")]
         public void TestCancelExecution()
         {
+            var isTestMode = DynamoModel.IsTestMode;
             RunCommandsFromFile("TestCancelExecutionFunctionCall.xml", (commandTag) =>
             {
                 // We need to run asynchronously for this test case as we need to 
@@ -3353,13 +3358,15 @@ namespace DynamoCoreWpfTests
                 }
          
             });
-            
+
+            DynamoModel.IsTestMode = isTestMode;
         }
 
         [Test, RequiresSTA]
         [Category("Failure")]
         public void TestCancelExecutionWhileLoop()
         {
+            var isTestMode = DynamoModel.IsTestMode;
             RunCommandsFromFile("TestCancelExecutionWhileLoop.xml", (commandTag) =>
             {
                 // We need to run asynchronously for this test case as we need to 
@@ -3384,6 +3391,7 @@ namespace DynamoCoreWpfTests
 
             });
 
+            DynamoModel.IsTestMode = isTestMode;
         }
 
         [Test]
