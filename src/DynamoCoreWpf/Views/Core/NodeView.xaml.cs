@@ -411,20 +411,32 @@ namespace Dynamo.Controls
 
         private void OnNodeViewMouseEnter(object sender, MouseEventArgs e)
         {
-            /*try
-            {*/
-                if (DynCmd.IsTestMode)
+            var msg = "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!test mode? - " + DynCmd.IsTestMode;
+            Console.WriteLine(msg);
+            Debug.WriteLine(msg);
+            ViewModel.DynamoViewModel.Model.Logger.Log(msg, Logging.LogLevel.Warning);
+            ViewModel.DynamoViewModel.Model.Logger.Log(msg, Logging.LogLevel.Console);
+            //try
+            {
+                TryShowPreviewBubbles();
+                /*if (DynCmd.IsTestMode)
                 {
                     TryShowPreviewBubbles();
                 }
                 else
                 {
                     TryShowPreviewBubblesAsync();
-                }
-            /*}
-            catch
+                }*/
+            }
+            /*catch (Exception ex)
             {
-            }*/
+                msg = "error!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!test mode? - " + DynCmd.IsTestMode;
+                Console.WriteLine(msg);
+                Debug.WriteLine(msg);
+                ViewModel.DynamoViewModel.Model.Logger.Log(msg, Logging.LogLevel.Warning);
+                ViewModel.DynamoViewModel.Model.Logger.Log(msg, Logging.LogLevel.Console);
+                throw;// new Exception(ex.Message + "___" + msg + "___" + ex.StackTrace);
+            }**/
         }
 
         private void TryShowPreviewBubbles()
