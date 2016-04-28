@@ -411,22 +411,22 @@ namespace Dynamo.Controls
 
         private void OnNodeViewMouseEnter(object sender, MouseEventArgs e)
         {
-            var msg = "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!test mode? - " + DynCmd.IsTestMode;
-            Console.WriteLine(msg);
-            Debug.WriteLine(msg);
-            ViewModel.DynamoViewModel.Model.Logger.Log(msg, Logging.LogLevel.Warning);
-            ViewModel.DynamoViewModel.Model.Logger.Log(msg, Logging.LogLevel.Console);
             //try
             {
-                TryShowPreviewBubbles();
-                /*if (DynCmd.IsTestMode)
+                //TryShowPreviewBubbles();
+                if (DynCmd.IsTestMode)
                 {
                     TryShowPreviewBubbles();
                 }
                 else
                 {
+                    var msg = "will be inside async oO !!!!!!!!!!test mode? - " + DynCmd.IsTestMode;
+                    Console.WriteLine(msg);
+                    Debug.WriteLine(msg);
+                    ViewModel.DynamoViewModel.Model.Logger.Log(msg, Logging.LogLevel.Warning);
+                    ViewModel.DynamoViewModel.Model.Logger.Log(msg, Logging.LogLevel.Console);
                     TryShowPreviewBubblesAsync();
-                }*/
+                }
             }
             /*catch (Exception ex)
             {
@@ -467,6 +467,11 @@ namespace Dynamo.Controls
 
         private async void TryShowPreviewBubblesAsync()
         {
+            var msg = "inside async oO !!!!!!!!!!test mode? - " + DynCmd.IsTestMode;
+            Console.WriteLine(msg);
+            Debug.WriteLine(msg);
+            ViewModel.DynamoViewModel.Model.Logger.Log(msg, Logging.LogLevel.Warning);
+            ViewModel.DynamoViewModel.Model.Logger.Log(msg, Logging.LogLevel.Console);
             // if the node is located under "Hide preview bubbles" menu item and the item is clicked,
             // ViewModel.DynamoViewModel.ShowPreviewBubbles will be updated AFTER node mouse enter event occurs
             // so, wait while ShowPreviewBubbles binding updates value

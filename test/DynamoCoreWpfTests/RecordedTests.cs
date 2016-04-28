@@ -1493,7 +1493,7 @@ namespace DynamoCoreWpfTests
                         DynamoModel.IsTestMode = false; // Simulate normal UI interaction mode.
                         AssertPreviewValue("556efc56-6043-4f96-8012-e5b716174d62", 16); // Addition node.
                         AssertPreviewValue("505023ef-9b86-4220-a1f2-e0bf7cf415f1", 8);  // Code block node.
-                        //DynamoModel.IsTestMode = isTestMode;
+                        DynamoModel.IsTestMode = isTestMode;
                         break;
 
                     case "CbnUpdatedTo9":
@@ -3358,7 +3358,7 @@ namespace DynamoCoreWpfTests
                     AssertNullValues();
                 }
 
-                //DynamoModel.IsTestMode = isTestMode;
+                DynamoModel.IsTestMode = isTestMode;
             });
 
             //DynamoModel.IsTestMode = isTestMode;
@@ -3391,7 +3391,7 @@ namespace DynamoCoreWpfTests
                     AssertNullValues();
                 }
 
-                //DynamoModel.IsTestMode = isTestMode;
+                DynamoModel.IsTestMode = isTestMode;
             });
 
             //DynamoModel.IsTestMode = isTestMode;
