@@ -1507,8 +1507,6 @@ namespace DynamoCoreWpfTests
                         break;
                 }
             });
-
-            //DynamoModel.IsTestMode = isTestMode;
         }
 
         [Test, RequiresSTA, Category("RegressionTests")]
@@ -3360,8 +3358,6 @@ namespace DynamoCoreWpfTests
 
                 DynamoModel.IsTestMode = isTestMode;
             });
-
-            //DynamoModel.IsTestMode = isTestMode;
         }
 
         [Test, RequiresSTA]
@@ -3393,8 +3389,6 @@ namespace DynamoCoreWpfTests
 
                 DynamoModel.IsTestMode = isTestMode;
             });
-
-            //DynamoModel.IsTestMode = isTestMode;
         }
 
         [Test]
