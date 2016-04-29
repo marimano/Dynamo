@@ -411,17 +411,7 @@ namespace Dynamo.Controls
 
         private void OnNodeViewMouseEnter(object sender, MouseEventArgs e)
         {
-            if (DynCmd.IsTestMode)
-            {
-                TryShowPreviewBubbles();
-            }
-            else
-            {
-                // if the node is located under "Hide preview bubbles" menu item and the item is clicked,
-                // ViewModel.DynamoViewModel.ShowPreviewBubbles will be updated AFTER node mouse enter event occurs
-                // so, wait while ShowPreviewBubbles binding updates value
-                Dispatcher.BeginInvoke(new Action(TryShowPreviewBubbles), DispatcherPriority.Loaded);
-            }
+            TryShowPreviewBubbles();
         }
 
         private void TryShowPreviewBubbles()
